@@ -134,12 +134,13 @@ const svgChart = computed(() => {
         </div>
       </div>
 
-      <!-- SVG bar chart -->
+      <!-- SVG bar chart (scrollable on mobile) -->
+      <div v-if="svgChart" class="overflow-x-auto">
       <svg
-        v-if="svgChart"
         :viewBox="`0 0 ${svgChart.W} ${svgChart.H}`"
-        class="w-full"
-        :style="`height: ${svgChart.H + 8}px`"
+        :width="svgChart.W"
+        :height="svgChart.H + 8"
+        class="block"
       >
         <!-- Grid lines + Y labels -->
         <g v-for="tick in svgChart.yTicks" :key="tick">
@@ -194,6 +195,7 @@ const svgChart = computed(() => {
           >{{ bar.label }}</text>
         </g>
       </svg>
+      </div>
 
       <!-- No data state -->
       <div v-else class="py-10 text-center text-sm text-zinc-400">
