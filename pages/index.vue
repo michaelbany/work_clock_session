@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import type { WorkSession, TimeInterval, ChartDay } from "~/composables/types";
 
+definePageMeta({ middleware: 'auth' })
+
 // ── Auth ─────────────────────────────────────────────────────────────────────
 
-const { authChecked, isAuthenticated, checkAuth, logout } = useAuth();
+const { logout } = useAuth();
 const appReady = ref(false);
 
 onMounted(async () => {
-  if (!authChecked.value) await checkAuth();
-  if (!isAuthenticated.value) {
-    await navigateTo("/login");
-    return;
-  }
   await init();
   appReady.value = true;
 });

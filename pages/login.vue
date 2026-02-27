@@ -1,19 +1,11 @@
 <script setup lang="ts">
-const { authChecked, isAuthenticated, checkAuth } = useAuth()
+definePageMeta({ middleware: 'guest' })
+
+const { isAuthenticated } = useAuth()
 
 const loginPassword = ref('')
 const loginError = ref('')
 const loginLoading = ref(false)
-const checking = ref(true)
-
-onMounted(async () => {
-  if (!authChecked.value) await checkAuth()
-  if (isAuthenticated.value) {
-    await navigateTo('/')
-    return
-  }
-  checking.value = false
-})
 
 async function login() {
   if (loginLoading.value) return
@@ -31,15 +23,7 @@ async function login() {
 </script>
 
 <template>
-  <!-- Auth check splash -->
-  <div v-if="checking" class="min-h-screen flex items-center justify-center">
-    <div class="font-mono text-zinc-200 text-3xl animate-pulse select-none tracking-widest">
-      00:00:00
-    </div>
-  </div>
-
-  <!-- Login -->
-  <div v-else class="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
+  <div class="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
 
     <!-- Decorative background clock -->
     <div

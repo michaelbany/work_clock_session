@@ -1,3 +1,5 @@
+import type { WorkSession } from '~/composables/types'
+
 export default function useMDExport(sessions: WorkSession[]) {
   const {
     sessionStartTime,

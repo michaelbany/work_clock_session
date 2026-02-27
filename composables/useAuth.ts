@@ -3,7 +3,10 @@ export function useAuth() {
   const isAuthenticated = useState('isAuthenticated', () => false)
 
   async function checkAuth() {
-    const res = await $fetch<{ authenticated: boolean }>('/api/auth/check')
+    // During SSR, $fetch in route middleware does NOT auto-forward browser cookies.
+    // useRequestHeaders explicitly passes them so /api/auth/check can read wc_token.
+    const headers = import.meta.server ? useRequestHeaders(['cookie']) : undefined
+    const res = await $fetch<{ authenticated: boolean }>('/api/auth/check', { headers })
       .catch(() => ({ authenticated: false }))
     isAuthenticated.value = res.authenticated
     authChecked.value = true
