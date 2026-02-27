@@ -102,35 +102,26 @@ const svgChart = computed(() => {
     <!-- Stats + chart -->
     <div class="px-6 py-5 space-y-5">
 
-      <!-- KPI stats row -->
-      <div v-if="chartStats" class="flex flex-wrap items-end gap-x-8 gap-y-4">
-        <div class="flex flex-col gap-1">
-          <span class="text-xs font-medium text-zinc-500 uppercase tracking-wider">Průměr</span>
-          <span class="font-mono font-semibold text-zinc-900 text-xl leading-none">{{ fmtSeconds(Math.round(chartStats.avg * 3600)) }}</span>
-        </div>
-        <div class="flex flex-col gap-1">
-          <span class="text-xs font-medium text-zinc-500 uppercase tracking-wider">Min</span>
-          <span class="font-mono font-semibold text-zinc-700 text-xl leading-none">{{ fmtSeconds(Math.round(chartStats.min * 3600)) }}</span>
-        </div>
-        <div class="flex flex-col gap-1">
-          <span class="text-xs font-medium text-zinc-500 uppercase tracking-wider">Max</span>
-          <span class="font-mono font-semibold text-zinc-700 text-xl leading-none">{{ fmtSeconds(Math.round(chartStats.max * 3600)) }}</span>
-        </div>
-        <div class="flex flex-col gap-1">
-          <span class="text-xs font-medium text-zinc-500 uppercase tracking-wider">Pracovní dny</span>
-          <span class="font-semibold text-zinc-700 text-xl leading-none">{{ chartStats.workingDays }}</span>
-        </div>
-        <!-- Legend -->
-        <div class="flex items-center gap-4 ml-auto text-xs text-zinc-500 pb-0.5">
-          <span class="flex items-center gap-1.5">
-            <span class="w-2.5 h-2.5 rounded-sm inline-block bg-emerald-500"></span>≥ 8h
-          </span>
-          <span class="flex items-center gap-1.5">
-            <span class="w-2.5 h-2.5 rounded-sm inline-block bg-amber-400"></span>5–8h
-          </span>
-          <span class="flex items-center gap-1.5">
-            <span class="w-2.5 h-2.5 rounded-sm inline-block bg-red-400"></span>&lt; 5h
-          </span>
+      <!-- KPI stats + legend -->
+      <div v-if="chartStats" class="space-y-3">
+        <!-- Stats: 2 sloupce na mobilu, 4 na sm+ -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="flex flex-col gap-1 px-4 py-3 bg-zinc-50 rounded-xl border border-zinc-100">
+            <span class="text-xs font-medium text-zinc-400 uppercase tracking-wide">Průměr</span>
+            <span class="font-mono font-semibold text-zinc-900 text-lg leading-none tabular-nums">{{ fmtSeconds(Math.round(chartStats.avg * 3600)) }}</span>
+          </div>
+          <div class="flex flex-col gap-1 px-4 py-3 bg-zinc-50 rounded-xl border border-zinc-100">
+            <span class="text-xs font-medium text-zinc-400 uppercase tracking-wide">Min</span>
+            <span class="font-mono font-semibold text-zinc-700 text-lg leading-none tabular-nums">{{ fmtSeconds(Math.round(chartStats.min * 3600)) }}</span>
+          </div>
+          <div class="flex flex-col gap-1 px-4 py-3 bg-zinc-50 rounded-xl border border-zinc-100">
+            <span class="text-xs font-medium text-zinc-400 uppercase tracking-wide">Max</span>
+            <span class="font-mono font-semibold text-zinc-700 text-lg leading-none tabular-nums">{{ fmtSeconds(Math.round(chartStats.max * 3600)) }}</span>
+          </div>
+          <div class="flex flex-col gap-1 px-4 py-3 bg-zinc-50 rounded-xl border border-zinc-100">
+            <span class="text-xs font-medium text-zinc-400 uppercase tracking-wide">Pracovní dny</span>
+            <span class="font-semibold text-zinc-700 text-lg leading-none">{{ chartStats.workingDays }}</span>
+          </div>
         </div>
       </div>
 
@@ -202,6 +193,17 @@ const svgChart = computed(() => {
         V tomto období nejsou žádné záznamy
       </div>
 
+      <div class="flex items-center gap-4 justify-self-end text-xs text-zinc-400">
+          <span class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded-sm inline-block bg-emerald-500"></span>≥ 8h
+          </span>
+          <span class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded-sm inline-block bg-amber-400"></span>5–8h
+          </span>
+          <span class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded-sm inline-block bg-red-400"></span>&lt; 5h
+          </span>
+        </div>
     </div>
   </div>
 </template>
