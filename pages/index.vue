@@ -217,7 +217,7 @@ async function exportMD() {
     params,
   }).catch(() => ({ sessions: [] }));
 
-  useMDExport(data.sessions).download();
+  useMDExport(data.sessions, chartData.value).download();
 }
 
 // ── Lifecycle ─────────────────────────────────────────────────────────────────
